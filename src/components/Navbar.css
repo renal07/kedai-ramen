@@ -1,0 +1,44 @@
+/* Style dasar navbar */
+.navbar {
+  background-color: #333;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.navbar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  display: inline;
+  margin-right: 20px;
+}
+
+.navbar-item a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.navbar-item a:hover {
+  color: #ffefd5;
+}
+
+/* Responsif: Navbar untuk perangkat mobile */
+@media (max-width: 768px) {
+  .navbar-list {
+    text-align: left; /* Menyusun item navbar ke kiri */
+    padding-left: 20px;
+  }
+
+  .navbar-item {
+    display: block;
+    margin-bottom: 10px; /* Jarak antar item navbar */
+  }
+
+  .navbar-item a {
+    font-size: 1.1rem;
+  }
+}
