@@ -45,23 +45,29 @@ function Home() {
           </button>
         </div>
 
-        {/* Rekomendasi Menu */}
-        <div className="menu-recommendations">
-          <h3>Rekomendasi Menu</h3>
-          <ul className="menu-list">
-            <li>Ramen Miso</li>
-            <li>Ramen Shoyu</li>
-            <li>Ramen Spicy</li>
-          </ul>
-        </div>
+        <h2>Rekomendasi Menu:</h2>
 
-        {/* Daftar Gambar */}
         <div className="image-gallery">
-          <img src={Ramen1} alt="Menu 1" />
-          <img src={Ramen2} alt="Menu 2" />
-          <img src={Ramen3} alt="Menu 3" />
-          <img src={Ramen2} alt="Menu 4" />
-          <img src={Ramen1} alt="Menu 5" />
+          <div className="menu-item">
+            <img src={Ramen1} alt="Menu 1" />
+            <p>Ramen Original</p>
+          </div>
+          <div className="menu-item">
+            <img src={Ramen2} alt="Menu 2" />
+            <p>Ramen Shoyu</p>
+          </div>
+          <div className="menu-item">
+            <img src={Ramen3} alt="Menu 3" />
+            <p>Ramen Spicy</p>
+          </div>
+          <div className="menu-item">
+            <img src={Ramen2} alt="Menu 4" />
+            <p>Ramen Ayam</p>
+          </div>
+          <div className="menu-item">
+            <img src={Ramen1} alt="Menu 5" />
+            <p>Ramen Miso</p>
+          </div>
         </div>
       </main>
       
