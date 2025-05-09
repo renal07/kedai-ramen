@@ -4,6 +4,10 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import '../pages/Home.css'; // pastikan CSS di sini
 
+import Ramen1 from '../assets/Ramen 1.png';
+import Ramen2 from '../assets/Ramen 2.png';
+import Ramen3 from '../assets/Ramen 3.png';
+
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [
@@ -53,11 +57,11 @@ function Home() {
 
         {/* Daftar Gambar */}
         <div className="image-gallery">
-          <img src="https://via.placeholder.com/150" alt="Menu 1" />
-          <img src="https://via.placeholder.com/150" alt="Menu 2" />
-          <img src="https://via.placeholder.com/150" alt="Menu 3" />
-          <img src="https://via.placeholder.com/150" alt="Menu 4" />
-          <img src="https://via.placeholder.com/150" alt="Menu 5" />
+          <img src={Ramen1} alt="Menu 1" />
+          <img src={Ramen2} alt="Menu 2" />
+          <img src={Ramen3} alt="Menu 3" />
+          <img src={Ramen2} alt="Menu 4" />
+          <img src={Ramen1} alt="Menu 5" />
         </div>
       </main>
       
