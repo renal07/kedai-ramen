@@ -30,7 +30,7 @@ function Profile() {
               alt="Muhammad Rajwa"
               className="profile-img"
             />
-            <h3>Muhammad Rajwa</h3>
+            <h3>Mohammad Rajwa</h3>
             <p className="profile-description">
               Muhammad Rajwa, Mahasiswa yang Ahli dalam mengumpulkan data dan referensi.
             </p>
