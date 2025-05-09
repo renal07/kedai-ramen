@@ -10,12 +10,12 @@ function About() {
       <Header />
       <Navbar />
       <main className="about-main">
-        <h2>Tentang Kedai Ichiban</h2>
+        <h2>RAMEN-YA!</h2>
         <p>
-          Kedai Ramen Ichiban adalah tempat terbaik untuk menikmati ramen autentik Jepang.
+          RAMEN-YA! adalah tempat terbaik untuk menikmati ramen autentik Jepang.
           Kami menggunakan bahan-bahan berkualitas dan resep asli dari Jepang.
         </p>
-        <p>masukin pararafnya yang rada nyambung kan nanti masuk di editnya</p>
+        <p>masukin pararafnya yang rada nyambung kan nanti masuk di editnyanh</p>
       </main>
       <Footer />
     </div>
