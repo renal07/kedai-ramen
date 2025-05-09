@@ -10,7 +10,7 @@ function Profile() {
       <Header />
       <Navbar />
       <main className="profile-main">
-        <h2>Profil Pembuat</h2>
+        <h2>Profil Pembuat Web</h2>
         <div className="profile-info">
           <div className="profile-card">
             <img
@@ -20,9 +20,7 @@ function Profile() {
             />
             <h3>Khoirunisha Salsabila</h3>
             <p className="profile-description">
-              Khoirunisha Salsabila, pemilik Kedai Ramen Ichiban. Saya memiliki
-              hasrat besar terhadap kuliner Jepang dan ingin memperkenalkan ramen
-              autentik kepada masyarakat.
+              Khoirunisha Salsabila, Mahasiswa yang Ahli dalam Mendesain terutama Figma.
             </p>
           </div>
 
@@ -32,11 +30,9 @@ function Profile() {
               alt="Muhammad Rajwa"
               className="profile-img"
             />
-            <h3>Muhammad Rajwa</h3>
+            <h3>Mohammad Rajwa</h3>
             <p className="profile-description">
-              Muhammad Rajwa adalah salah satu chef utama di Kedai Ichiban. Dengan pengalaman
-              bertahun-tahun di dunia kuliner, dia bertanggung jawab untuk menciptakan rasa
-              ramen yang khas di kedai kami.
+              Muhammad Rajwa, Mahasiswa yang Ahli dalam mengumpulkan data dan referensi.
             </p>
           </div>
 
@@ -48,8 +44,7 @@ function Profile() {
             />
             <h3>Reinal Fahrizi</h3>
             <p className="profile-description">
-              Reinal Fahrizi adalah manajer operasional di Kedai Ichiban, memastikan semuanya
-              berjalan lancar dan memberikan pelayanan terbaik bagi pelanggan kami.
+              Reinal Fahrizi, Mahasiswa yang Ahli dalam Program.
             </p>
           </div>
         </div>
