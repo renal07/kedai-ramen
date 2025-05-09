@@ -1,33 +1,32 @@
 .profile-main {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 40px;
   text-align: center;
-}
-
-.profile-main h2 {
-  font-size: 2rem;
-  color: #8b0000;
-  margin-bottom: 20px;
 }
 
 .profile-info {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.profile-card {
+  text-align: center;
+  width: 250px;
 }
 
 .profile-img {
   width: 150px;
   height: 150px;
-  border-radius: 50%;
+  border-radius: 50%;  /* Membuat gambar menjadi lingkaran */
   margin-bottom: 20px;
 }
 
+.profile-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 .profile-description {
-  font-size: 1.2rem;
-  color: #444;
-  line-height: 1.6;
-  margin-top: 15px;
+  font-size: 16px;
+  color: #555;
 }

@@ -1,44 +1,41 @@
-/* Style dasar navbar */
 .navbar {
-  background-color: #333;
-  padding: 10px 0;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;  /* Warna latar belakang navbar */
+  padding: 15px 50px;  /* Memberi jarak di kiri dan kanan */
+  border-radius: 20px;  /* Membuat navbar melengkung */
+  margin-top: 20px;  /* Jarak antara navbar dan header */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Menambah bayangan ringan */
 }
 
-.navbar-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.navbar-logo h1 {
+  color: white;
+  font-size: 28px;
 }
 
-.navbar-item {
-  display: inline;
-  margin-right: 20px;
+.navbar-menu {
+  list-style-type: none;
+  display: flex;
+  gap: 30px;
 }
 
-.navbar-item a {
-  color: #fff;
+.navbar-menu li {
+  padding: 5px 10px;
+}
+
+.navbar-menu a {
+  color: white;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 18px;
+  transition: color 0.3s;
 }
 
-.navbar-item a:hover {
-  color: #ffefd5;
+.navbar-menu a:hover {
+  color: #f39c12;  /* Warna saat hover */
 }
 
-/* Responsif: Navbar untuk perangkat mobile */
-@media (max-width: 768px) {
-  .navbar-list {
-    text-align: left; /* Menyusun item navbar ke kiri */
-    padding-left: 20px;
-  }
-
-  .navbar-item {
-    display: block;
-    margin-bottom: 10px; /* Jarak antar item navbar */
-  }
-
-  .navbar-item a {
-    font-size: 1.1rem;
-  }
+.navbar-brand h2 {
+  color: white;
+  font-size: 22px;
 }

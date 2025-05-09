@@ -10,19 +10,48 @@ function Profile() {
       <Header />
       <Navbar />
       <main className="profile-main">
-        <h2>Profil Pemilik Kedai Ichiban</h2>
+        <h2>Profil Pembuat</h2>
         <div className="profile-info">
-          <img
-            src="https://via.placeholder.com/150"
-            alt="Pemilik Kedai Ichiban"
-            className="profile-img"
-          />
-          <p className="profile-description">
-            Nama saya Ichiro Tanaka, pemilik Kedai Ramen Ichiban. Saya memiliki
-            hasrat besar terhadap kuliner Jepang dan ingin memperkenalkan ramen
-            autentik kepada masyarakat. Saya berharap Kedai Ichiban bisa menjadi
-            tempat favorit bagi banyak orang untuk menikmati ramen lezat.
-          </p>
+          <div className="profile-card">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Khoirunisha Salsabila"
+              className="profile-img"
+            />
+            <h3>Khoirunisha Salsabila</h3>
+            <p className="profile-description">
+              Khoirunisha Salsabila, pemilik Kedai Ramen Ichiban. Saya memiliki
+              hasrat besar terhadap kuliner Jepang dan ingin memperkenalkan ramen
+              autentik kepada masyarakat.
+            </p>
+          </div>
+
+          <div className="profile-card">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Muhammad Rajwa"
+              className="profile-img"
+            />
+            <h3>Muhammad Rajwa</h3>
+            <p className="profile-description">
+              Muhammad Rajwa adalah salah satu chef utama di Kedai Ichiban. Dengan pengalaman
+              bertahun-tahun di dunia kuliner, dia bertanggung jawab untuk menciptakan rasa
+              ramen yang khas di kedai kami.
+            </p>
+          </div>
+
+          <div className="profile-card">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Reinal Fahrizi"
+              className="profile-img"
+            />
+            <h3>Reinal Fahrizi</h3>
+            <p className="profile-description">
+              Reinal Fahrizi adalah manajer operasional di Kedai Ichiban, memastikan semuanya
+              berjalan lancar dan memberikan pelayanan terbaik bagi pelanggan kami.
+            </p>
+          </div>
         </div>
       </main>
       <Footer />
