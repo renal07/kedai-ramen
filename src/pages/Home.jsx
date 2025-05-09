@@ -7,9 +7,9 @@ import '../pages/Home.css'; // pastikan CSS di sini
 function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [
-    'https://via.placeholder.com/400x200?text=Iklan+1',
-    'https://via.placeholder.com/400x200?text=Iklan+2',
-    'https://via.placeholder.com/400x200?text=Iklan+3',
+    'https://placehold.co/400x200?text=Iklan+1',
+    'https://placehold.co/400x200?text=Iklan+2',
+    'https://placehold.co/400x200?text=Iklan+3',
   ];
 
   const nextImage = () => {
