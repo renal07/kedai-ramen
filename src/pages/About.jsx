@@ -15,6 +15,7 @@ function About() {
           Kedai Ramen Ichiban adalah tempat terbaik untuk menikmati ramen autentik Jepang.
           Kami menggunakan bahan-bahan berkualitas dan resep asli dari Jepang.
         </p>
+        <p>masukin pararafnya yang rada nyambung kan nanti masuk di editnya</p>
       </main>
       <Footer />
     </div>
