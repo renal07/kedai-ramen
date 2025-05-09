@@ -60,6 +60,7 @@ function Home() {
           <img src="https://via.placeholder.com/150" alt="Menu 5" />
         </div>
       </main>
+      
       <Footer />
     </div>
   );
