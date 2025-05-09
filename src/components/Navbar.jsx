@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <h1>Ichiban</h1>
+        <h1>KEDAI RAMEN</h1>
       </div>
       <ul className="navbar-menu">
         <li><a href="/">Home</a></li>
@@ -15,7 +15,7 @@ function Navbar() {
         <li><a href="/profile">Profile</a></li>
       </ul>
       <div className="navbar-brand">
-        <h2>Kedai Ramen</h2>
+        <h2>ICHIBAN</h2>
       </div>
     </nav>
   );
