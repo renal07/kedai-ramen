@@ -81,3 +81,19 @@
   font-size: 1rem;
   color: #333;
 }
+
+/* Bungkus Iklan dengan latar biru muda */
+.ad-wrapper {
+  background-color: #d0e7ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+/* Bungkus Rekomendasi dengan latar merah muda */
+.recommendation-wrapper {
+  background-color: #ffe5e5;
+  padding: 30px 20px;
+  border-radius: 12px;
+  margin-top: 40px;
+}

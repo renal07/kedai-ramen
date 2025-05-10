@@ -1,21 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import './Product.css'; // file css khusus untuk product
+import Ramen1 from '../assets/Ramen 1.png';
+import Ramen2 from '../assets/Ramen 2.png';
+import Ramen3 from '../assets/Ramen 3.png';
+import './Product.css';
+
+const ramenList = [
+  { name: 'Ramen Original', image: Ramen1 },
+  { name: 'Ramen Shoyu', image: Ramen2 },
+  { name: 'Ramen Spicy', image: Ramen3 },
+  { name: 'Ramen Ayam', image: Ramen2 },
+  { name: 'Ramen Miso', image: Ramen1 },
+];
 
 function Product() {
+  const [selectedRamen, setSelectedRamen] = useState(ramenList[0]);
+
   return (
     <div>
       <Header />
       <Navbar />
       <main className="product-main">
         <h2>Menu Ramen Kami</h2>
+
+        {/* Gambar besar */}
+        <div className="featured-image">
+          <img src={selectedRamen.image} alt={selectedRamen.name} />
+          <h3>{selectedRamen.name}</h3>
+        </div>
+
+        {/* Daftar menu */}
         <ul className="product-list">
-          <li>Miso Ramen</li>
-          <li>Shoyu Ramen</li>
-          <li>Shio Ramen</li>
-          <li>Spicy Ramen</li>
+          {ramenList.map((ramen, index) => (
+            <li key={index} onClick={() => setSelectedRamen(ramen)} className="product-item">
+              {ramen.name}
+            </li>
+          ))}
         </ul>
       </main>
       <Footer />
