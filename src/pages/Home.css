@@ -18,6 +18,15 @@
   width: 400px;
   height: 200px;
   object-fit: cover;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
 }
 
 .ad-btn {
@@ -64,6 +73,8 @@
   display: flex;
   justify-content: space-around;
   margin-top: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .image-gallery img {
@@ -72,10 +83,12 @@
   object-fit: cover;
   border-radius: 8px;
 }
+
 .menu-item {
   text-align: center;
   width: 150px;
 }
+
 .menu-item p {
   margin-top: 8px;
   font-size: 1rem;

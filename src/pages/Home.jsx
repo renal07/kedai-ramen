@@ -12,27 +12,37 @@ import Ramen3 from '../assets/Ramen 3.png';
 import '../pages/Home.css';
 
 function Home() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleClick = () => {
     navigate('/product');
   };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [fade, setFade] = useState(true);
+
   const images = [
-    {Iklan1},
+    Iklan1,
     'https://placehold.co/400x200?text=Iklan+2',
     'https://placehold.co/400x200?text=Iklan+3',
   ];
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setFade(false);
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setFade(true);
+    }, 300);
   };
 
   const prevImage = () => {
-    setCurrentImageIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
-    );
+    setFade(false);
+    setTimeout(() => {
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex - 1 + images.length) % images.length
+      );
+      setFade(true);
+    }, 300);
   };
 
   return (
@@ -48,7 +58,11 @@ function Home() {
             <button className="ad-btn" onClick={prevImage}>
               &#8592;
             </button>
-            <img src={images[currentImageIndex]} alt="Iklan" className="ad-img" />
+            <img
+              src={images[currentImageIndex]}
+              alt="Iklan"
+              className={`ad-img ${fade ? 'fade-in' : 'fade-out'}`}
+            />
             <button className="ad-btn" onClick={nextImage}>
               &#8594;
             </button>
@@ -66,12 +80,20 @@ function Home() {
                 style={{ cursor: 'pointer' }}
               >
                 <img src={img} alt={`Menu ${index + 1}`} />
-                <p>{['Yokohama Ramen', 'Nakamoto', 'Shibuya Ramen', 'Donburiya', 'Sushi Salmon', 'Tuna Takaki', ][index]}</p>
+                <p>
+                  {[
+                    'Yokohama Ramen',
+                    'Nakamoto',
+                    'Shibuya Ramen',
+                    'Donburiya',
+                    'Sushi Salmon',
+                    'Tuna Takaki',
+                  ][index]}
+                </p>
               </div>
             ))}
           </div>
         </div>
-
       </main>
       <Footer />
     </div>
