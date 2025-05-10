@@ -2,10 +2,10 @@ import React from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import './Profile.css'; // file CSS untuk halaman Profile
+import './Location.css'; // file CSS untuk halaman Profile
 
 
-function Profile() {
+function Location() {
   return (
     <div>
       <Header />
@@ -15,4 +15,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Location;
