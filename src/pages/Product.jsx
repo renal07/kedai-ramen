@@ -8,11 +8,11 @@ import Ramen3 from '../assets/Ramen 3.png';
 import './Product.css';
 
 const ramenList = [
-  { name: 'Ramen Original', image: Ramen1 },
-  { name: 'Ramen Shoyu', image: Ramen2 },
-  { name: 'Ramen Spicy', image: Ramen3 },
-  { name: 'Ramen Ayam', image: Ramen2 },
-  { name: 'Ramen Miso', image: Ramen1 },
+  { name: 'Yokohama Ramen', image: Ramen1 },
+  { name: 'Nakamoto', image: Ramen2 },
+  { name: 'Shibuya Ramen', image: Ramen3 },
+  { name: 'Donburiya', image: Ramen2 },
+  { name: 'Sushi Salmon', image: Ramen1 },
 ];
 
 function Product() {

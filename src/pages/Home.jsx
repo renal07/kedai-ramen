@@ -11,7 +11,7 @@ import Ramen3 from '../assets/Ramen 3.png';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const navigate = useNavigate(); // 
+  const navigate = useNavigate(); 
 
   const handleClick = () => {
     navigate('/product'); // Navigasi ke halaman produk
@@ -40,7 +40,7 @@ function Home() {
       <Navbar />
       <main className="home-main">
         <h2>Selamat datang!</h2>
-        <p>Nikmati ramen terenak dengan kuah khas Jepang di Kedai Ichiban.</p>
+        <p>Nikmati ramen terenak dengan kuah khas Jepang di Kedai Ramen iTadaKimaSu!</p>
 
         <div className="ad-wrapper">
           <div className="ad-box">
@@ -65,7 +65,7 @@ function Home() {
                 style={{ cursor: 'pointer' }}
               >
                 <img src={img} alt={`Menu ${index + 1}`} />
-                <p>{['Ramen Original', 'Ramen Shoyu', 'Ramen Spicy', 'Ramen Ayam', 'Ramen Miso'][index]}</p>
+                <p>{['Yokohama Ramen', 'Nakamoto', 'Shibuya Ramen', 'Donburiya', 'Sushi Salmon', 'Tuna Takaki', ][index]}</p>
               </div>
             ))}
           </div>

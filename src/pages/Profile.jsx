@@ -4,55 +4,12 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './Profile.css'; // file CSS untuk halaman Profile
 
-import Reinal from '../assets/fotoReinal.jpg'
-import Rajwa from '../assets/fotoRajwa.jpg'
-import Sasha from '../assets/Sushi v4.jpg'
 
 function Profile() {
   return (
     <div>
       <Header />
       <Navbar />
-      <main className="profile-main">
-        <h2>Profil Pembuat Web</h2>
-        <div className="profile-info">
-          <div className="profile-card">
-            <img
-              src={Sasha}
-              alt="Khoirunisha Salsabila"
-              className="profile-img"
-            />
-            <h3>Khoirunisha Salsabila</h3>
-            <p className="profile-description">
-              Khoirunisha Salsabila, Mahasiswa yang Ahli dalam Mendesain terutama Figma.
-            </p>
-          </div>
-
-          <div className="profile-card">
-            <img
-              src={Rajwa}
-              alt="Muhammad Rajwa"
-              className="profile-img"
-            />
-            <h3>Mohammad Rajwa</h3>
-            <p className="profile-description">
-              Muhammad Rajwa, Mahasiswa yang Ahli dalam mengumpulkan data dan referensi.
-            </p>
-          </div>
-
-          <div className="profile-card">
-            <img
-              src={Reinal}
-              alt="Reinal Fahrizi"
-              className="profile-img"
-            />
-            <h3>Reinal Fahrizi</h3>
-            <p className="profile-description">
-              Reinal Fahrizi, Mahasiswa yang Ahli dalam Program.
-            </p>
-          </div>
-        </div>
-      </main>
       <Footer />
     </div>
   );

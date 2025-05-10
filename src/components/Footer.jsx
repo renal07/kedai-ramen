@@ -9,7 +9,7 @@ function Footer() {
           <div className="contact-info">
             <h3>Hubungi Kami</h3>
             <p>Alamat: Desa Bantaragung, Kecamatan Sindangwangi, Kabupaten Majalengka</p>
-            <p>Email: kedairamenramenya@mail.com</p>
+            <p>Email: itadakimasukedairamen@mail.com</p>
           </div>
           <div className="cs-info">
             <h3>CS Kedai</h3>
@@ -30,7 +30,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; 2024 Kedai Ramen RAMEN-YA</p>
+        <p>&copy; 2024 iTadaKimaSu!</p>
       </div>
     </footer>
   );
