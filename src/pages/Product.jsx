@@ -25,13 +25,11 @@ function Product() {
       <main className="product-main">
         <h2>Menu Ramen Kami</h2>
 
-        {/* Gambar besar */}
         <div className="featured-image">
           <img src={selectedRamen.image} alt={selectedRamen.name} />
           <h3>{selectedRamen.name}</h3>
         </div>
 
-        {/* Daftar menu */}
         <ul className="product-list">
           {ramenList.map((ramen, index) => (
             <li key={index} onClick={() => setSelectedRamen(ramen)} className="product-item">

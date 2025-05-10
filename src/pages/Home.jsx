@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import '../pages/Home.css';
 
+import Iklan1 from '../assets/Iklan.png';
 import Ramen1 from '../assets/Ramen 1.png';
 import Ramen2 from '../assets/Ramen 2.png';
 import Ramen3 from '../assets/Ramen 3.png';
 
-import { useNavigate } from 'react-router-dom';
+import '../pages/Home.css';
 
 function Home() {
   const navigate = useNavigate(); 
 
   const handleClick = () => {
-    navigate('/product'); // Navigasi ke halaman produk
+    navigate('/product');
   };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [
-    'https://placehold.co/400x200?text=Iklan+1',
+    {Iklan1},
     'https://placehold.co/400x200?text=Iklan+2',
     'https://placehold.co/400x200?text=Iklan+3',
   ];

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Navbar.css'; // Pastikan link ke CSS yang benar
+import './Navbar.css';
 
 function Navbar() {
   return (

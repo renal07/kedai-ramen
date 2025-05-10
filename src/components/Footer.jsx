@@ -1,5 +1,5 @@
 import React from 'react';
-import './Footer.css'; // Pastikan CSS berada di dalam folder yang sama
+import './Footer.css';
 
 function Footer() {
   return (

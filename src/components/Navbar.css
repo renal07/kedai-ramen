@@ -2,11 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #c0392b; /* warna merah cerah seperti di gambar */
+  background-color: #c0392b;
   padding: 10px 40px;
   border-radius: 30px;
   margin: 20px auto;
-  max-width: 1200px;  /* agar tidak terlalu lebar */
+  max-width: 1200px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 

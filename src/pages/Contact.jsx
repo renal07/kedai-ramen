@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import './Contact.css'; // file CSS untuk halaman Contact
+import './Contact.css';
 
 function Contact() {
   return (
