@@ -4,6 +4,10 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './Profile.css'; // file CSS untuk halaman Profile
 
+import Reinal from '../assets/fotoReinal.jpg'
+import Rajwa from '../assets/fotoRajwa.jpg'
+import Sasha from '../assets/Sushi v4.jpg'
+
 function Profile() {
   return (
     <div>
@@ -14,7 +18,7 @@ function Profile() {
         <div className="profile-info">
           <div className="profile-card">
             <img
-              src="https://via.placeholder.com/150"
+              src={Sasha}
               alt="Khoirunisha Salsabila"
               className="profile-img"
             />
@@ -26,7 +30,7 @@ function Profile() {
 
           <div className="profile-card">
             <img
-              src="https://via.placeholder.com/150"
+              src={Rajwa}
               alt="Muhammad Rajwa"
               className="profile-img"
             />
@@ -38,7 +42,7 @@ function Profile() {
 
           <div className="profile-card">
             <img
-              src="https://via.placeholder.com/150"
+              src={Reinal}
               alt="Reinal Fahrizi"
               className="profile-img"
             />

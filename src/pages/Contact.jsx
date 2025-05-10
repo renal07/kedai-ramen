@@ -13,9 +13,9 @@ function Contact() {
         <h2>Kontak Kami</h2>
         <p>Jika Anda memiliki pertanyaan atau ingin melakukan pemesanan, hubungi kami melalui informasi berikut:</p>
         <div className="contact-info">
-          <p>Email: kedairamenichiban@mail.com</p>
+          <p>Email: kedairamenramenya@gmail.com</p>
           <p>Telepon: (+62)82-5987-654-321</p>
-          <p>Alamat: Blok Pon, Desa Bantaragung, Kecamatan Sindangwangi, Kabupaten Majalengka</p>
+          <p>Alamat: Desa Bantaragung, Kecamatan Sindangwangi, Kabupaten Majalengka</p>
         </div>
       </main>
       <Footer />
