@@ -48,3 +48,22 @@
 .product-item:hover {
   background-color: #fce8e8;
 }
+
+.form-tambah {
+  margin-bottom: 30px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+.form-tambah input,
+.form-tambah select {
+  margin: 5px;
+  padding: 8px;
+}
+.form-tambah button {
+  padding: 8px 12px;
+  background: #b22222;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
