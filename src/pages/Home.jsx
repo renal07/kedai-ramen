@@ -72,26 +72,24 @@ function Home() {
         <div className="recommendation-wrapper">
           <h2>Rekomendasi Menu:</h2>
           <div className="image-gallery">
-            {[Ramen1, Ramen2, Ramen3, Ramen2, Ramen1].map((img, index) => (
-              <div
-                className="menu-item"
-                key={index}
-                onClick={handleClick}
-                style={{ cursor: 'pointer' }}
-              >
-                <img src={img} alt={`Menu ${index + 1}`} />
-                <p>
-                  {[
-                    'Yokohama Ramen',
-                    'Nakamoto',
-                    'Shibuya Ramen',
-                    'Donburiya',
-                    'Sushi Salmon',
-                    'Tuna Takaki',
-                  ][index]}
-                </p>
-              </div>
-            ))}
+            {[Ramen1, Ramen2, Ramen3].map((img, index) => (
+  <div
+    className="menu-item"
+    key={index}
+    onClick={handleClick}
+    style={{ cursor: 'pointer' }}
+  >
+    <img src={img} alt={`Menu ${index + 1}`} />
+    <p>
+      {[
+        'Yokohama Ramen',
+        'Nakamoto Ramen',
+        'Shibuya Ramen',
+      ][index]}
+    </p>
+  </div>
+))}
+
           </div>
         </div>
       </main>

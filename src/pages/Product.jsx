@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Ramen1 from '../assets/Ramen 1.png';
-import Ramen2 from '../assets/Ramen 2.png';
-import Ramen3 from '../assets/Ramen 3.png';
 import './Product.css';
 
-const ramenList = [
-  { name: 'Yokohama Ramen', image: Ramen1 },
-  { name: 'Nakamoto', image: Ramen2 },
-  { name: 'Shibuya Ramen', image: Ramen3 },
-  { name: 'Donburiya', image: Ramen2 },
-  { name: 'Sushi Salmon', image: Ramen1 },
-];
-
 function Product() {
-  const [selectedRamen, setSelectedRamen] = useState(ramenList[0]);
+  const [produkList, setProdukList] = useState([]);
+  const [selectedProduk, setSelectedProduk] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost/kedai-api/produk/read.php")
+      .then((res) => res.json())
+      .then((data) => {
+        setProdukList(data);
+        setSelectedProduk(data[0]); // tampilkan produk pertama
+      });
+  }, []);
 
   return (
     <div>
@@ -25,15 +24,25 @@ function Product() {
       <main className="product-main">
         <h2>Menu Ramen Kami</h2>
 
-        <div className="featured-image">
-          <img src={selectedRamen.image} alt={selectedRamen.name} />
-          <h3>{selectedRamen.name}</h3>
-        </div>
+        {selectedProduk && (
+          <div className="featured-image">
+            <img
+              src={`http://localhost/kedai-api/images/${selectedProduk.gambar}`}
+              alt={selectedProduk.nama}
+            />
+            <h3>{selectedProduk.nama}</h3>
+            <p>Rp {parseInt(selectedProduk.harga).toLocaleString()}</p>
+          </div>
+        )}
 
         <ul className="product-list">
-          {ramenList.map((ramen, index) => (
-            <li key={index} onClick={() => setSelectedRamen(ramen)} className="product-item">
-              {ramen.name}
+          {produkList.map((produk) => (
+            <li
+              key={produk.id}
+              onClick={() => setSelectedProduk(produk)}
+              className="product-item"
+            >
+              {produk.nama}
             </li>
           ))}
         </ul>
