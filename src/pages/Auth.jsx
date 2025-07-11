@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Auth.css';
 
 function Auth() {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -23,7 +22,12 @@ function Auth() {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           alert("Login berhasil!");
-          navigate("/home"); // ✅ arahkan ke halaman home setelah login
+
+          if (data.user.role === "admin") {
+            navigate("/admin");
+          } else {
+            navigate("/home");
+          }
         } else {
           alert(data.message || "Login gagal");
         }
@@ -35,8 +39,16 @@ function Auth() {
   };
 
   return (
-    <div className="login-page">
-      <h2>Login Admin</h2>
+    <div style={{
+      maxWidth: '400px',
+      margin: '80px auto',
+      textAlign: 'center',
+      border: '1px solid #ccc',
+      padding: '30px',
+      borderRadius: '10px',
+      background: '#fafafa'
+    }}>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -45,6 +57,7 @@ function Auth() {
           onChange={handleChange}
           placeholder="Username"
           required
+          style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0' }}
         />
         <input
           type="password"
@@ -53,8 +66,14 @@ function Auth() {
           onChange={handleChange}
           placeholder="Password"
           required
+          style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0' }}
         />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          style={{ padding: '10px 20px', background: '#b22222', color: 'white', border: 'none', cursor: 'pointer' }}
+        >
+          Login
+        </button>
       </form>
     </div>
   );

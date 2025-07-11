@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import './Product.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Ramen1 from '../assets/Ramen 1.png';
 import Ramen2 from '../assets/Ramen 2.png';
@@ -24,6 +25,7 @@ function Product() {
     gambar: '',
   });
   const [isEditMode, setIsEditMode] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProduk();
@@ -97,10 +99,20 @@ function Product() {
       });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
   return (
     <div>
       <Header />
-      <Navbar />
+      <div style={{ display: 'flex', gap: '12px', margin: '16px 0', justifyContent: 'center' }}>
+        <Link to="/admin">
+          <button className="admin-btn">Kembali</button>
+        </Link>
+        <button className="admin-btn logout" onClick={handleLogout}>Logout</button>
+      </div>
       <main className="product-main">
         <h2>Menu Ramen Kami</h2>
 

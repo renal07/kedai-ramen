@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -12,12 +11,6 @@ import Ramen3 from '../assets/Ramen 3.png';
 import '../pages/Home.css';
 
 function Home() {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/product');
-  };
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fade, setFade] = useState(true);
 
@@ -73,23 +66,17 @@ function Home() {
           <h2>Rekomendasi Menu:</h2>
           <div className="image-gallery">
             {[Ramen1, Ramen2, Ramen3].map((img, index) => (
-  <div
-    className="menu-item"
-    key={index}
-    onClick={handleClick}
-    style={{ cursor: 'pointer' }}
-  >
-    <img src={img} alt={`Menu ${index + 1}`} />
-    <p>
-      {[
-        'Yokohama Ramen',
-        'Nakamoto Ramen',
-        'Shibuya Ramen',
-      ][index]}
-    </p>
-  </div>
-))}
-
+              <div className="menu-item" key={index}>
+                <img src={img} alt={`Menu ${index + 1}`} />
+                <p>
+                  {[
+                    'Yokohama Ramen',
+                    'Nakamoto Ramen',
+                    'Shibuya Ramen',
+                  ][index]}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </main>

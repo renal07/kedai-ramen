@@ -67,3 +67,28 @@
   border: none;
   cursor: pointer;
 }
+
+/* Tombol admin di halaman produk */
+.admin-btn {
+  background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.admin-btn:hover {
+  background: linear-gradient(90deg, #ffcc33 0%, #ffb347 100%);
+  transform: translateY(-2px) scale(1.04);
+}
+.admin-btn.logout {
+  background: linear-gradient(90deg, #d62828 0%, #ff5858 100%);
+  color: #fff;
+}
+.admin-btn.logout:hover {
+  background: linear-gradient(90deg, #ff5858 0%, #d62828 100%);
+}

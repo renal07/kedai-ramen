@@ -19,7 +19,7 @@ function Navbar() {
       {user ? (
         <ul className="navbar-menu">
           <li><Link to="/home">Home</Link></li>
-          <li><Link to="/product">Product</Link></li>
+          <li><Link to="/beli">Beli</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
           <li>
