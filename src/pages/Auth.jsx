@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
 
@@ -23,7 +23,7 @@ function Auth() {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           alert("Login berhasil!");
-          navigate("/product");
+          navigate("/home"); // ✅ arahkan ke halaman home setelah login
         } else {
           alert(data.message || "Login gagal");
         }

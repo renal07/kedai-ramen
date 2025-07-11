@@ -15,33 +15,28 @@ const imageMap = {
 };
 
 function Product() {
-  // ✅ Hooks harus selalu di bagian atas
   const [produkList, setProdukList] = useState([]);
   const [selectedProduk, setSelectedProduk] = useState(null);
   const [newProduk, setNewProduk] = useState({
+    id: '',
     nama: '',
-    deskripsi: '',
     harga: '',
     gambar: '',
   });
-
-  // ✅ Ambil user setelah deklarasi hook
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
-    if (!user) return; // jangan fetch kalau belum login
+    fetchProduk();
+  }, []);
+
+  const fetchProduk = () => {
     fetch("http://localhost/kedai-api/produk/read.php")
       .then((res) => res.json())
       .then((data) => {
         setProdukList(data);
-        setSelectedProduk(data[0]);
+        setSelectedProduk(data[0] || null);
       });
-  }, [user]);
-
-  if (!user) {
-    window.location.href = "/login";
-    return null;
-  }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +44,11 @@ function Product() {
   };
 
   const handleTambahProduk = () => {
+    if (!newProduk.nama || !newProduk.harga || !newProduk.gambar) {
+      alert("Harap lengkapi semua field.");
+      return;
+    }
+
     fetch("http://localhost/kedai-api/produk/create.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -56,22 +56,29 @@ function Product() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message.includes("berhasil")) {
-          fetch("http://localhost/kedai-api/produk/read.php")
-            .then((res) => res.json())
-            .then((updatedData) => {
-              setProdukList(updatedData);
-              setSelectedProduk(updatedData[updatedData.length - 1]);
-              setNewProduk({ nama: '', deskripsi: '', harga: '', gambar: '' });
-            });
-          alert(data.message);
-        } else {
-          alert(data.message);
-        }
-      })
-      .catch((err) => {
-        console.error("Gagal fetch:", err);
-        alert("Terjadi kesalahan saat menghubungi server.");
+        alert(data.message);
+        setNewProduk({ nama: '', harga: '', gambar: '' });
+        fetchProduk();
+      });
+  };
+
+  const handleEditProduk = (produk) => {
+    setNewProduk(produk);
+    setIsEditMode(true);
+  };
+
+  const handleUpdateProduk = () => {
+    fetch("http://localhost/kedai-api/produk/update.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newProduk),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert(data.message);
+        setIsEditMode(false);
+        setNewProduk({ nama: '', harga: '', gambar: '' });
+        fetchProduk();
       });
   };
 
@@ -86,16 +93,7 @@ function Product() {
       .then((res) => res.json())
       .then((data) => {
         alert(data.message);
-        fetch("http://localhost/kedai-api/produk/read.php")
-          .then((res) => res.json())
-          .then((updatedData) => {
-            setProdukList(updatedData);
-            setSelectedProduk(updatedData[0] || null);
-          });
-      })
-      .catch((err) => {
-        console.error("Gagal delete:", err);
-        alert("Terjadi kesalahan saat menghapus produk.");
+        fetchProduk();
       });
   };
 
@@ -106,45 +104,39 @@ function Product() {
       <main className="product-main">
         <h2>Menu Ramen Kami</h2>
 
-        {user?.role === "admin" && (
-          <div className="form-tambah">
-            <h3>Tambah Produk</h3>
-            <input
-              type="text"
-              name="nama"
-              value={newProduk.nama}
-              onChange={handleChange}
-              placeholder="Nama produk"
-            />
-            <input
-              type="text"
-              name="deskripsi"
-              value={newProduk.deskripsi}
-              onChange={handleChange}
-              placeholder="Deskripsi"
-            />
-            <input
-              type="number"
-              name="harga"
-              value={newProduk.harga}
-              onChange={handleChange}
-              placeholder="Harga"
-            />
-            <select name="gambar" value={newProduk.gambar} onChange={handleChange}>
-              <option value="">Pilih Gambar</option>
-              <option value="Ramen1.jpg">Ramen1</option>
-              <option value="Ramen2.jpg">Ramen2</option>
-              <option value="Ramen3.jpg">Ramen3</option>
-            </select>
+        <div className="form-tambah">
+          <h3>{isEditMode ? 'Edit Produk' : 'Tambah Produk'}</h3>
+          <input
+            type="text"
+            name="nama"
+            value={newProduk.nama}
+            onChange={handleChange}
+            placeholder="Nama produk"
+          />
+          <input
+            type="number"
+            name="harga"
+            value={newProduk.harga}
+            onChange={handleChange}
+            placeholder="Harga"
+          />
+          <select name="gambar" value={newProduk.gambar} onChange={handleChange}>
+            <option value="">Pilih Gambar</option>
+            <option value="Ramen1.jpg">Ramen1</option>
+            <option value="Ramen2.jpg">Ramen2</option>
+            <option value="Ramen3.jpg">Ramen3</option>
+          </select>
+          {isEditMode ? (
+            <button onClick={handleUpdateProduk}>Simpan Perubahan</button>
+          ) : (
             <button onClick={handleTambahProduk}>Tambah</button>
-          </div>
-        )}
+          )}
+        </div>
 
         {selectedProduk && (
           <div className="featured-image">
             <img src={imageMap[selectedProduk.gambar]} alt={selectedProduk.nama} />
             <h3>{selectedProduk.nama}</h3>
-            <p><em>{selectedProduk.deskripsi}</em></p>
             <p>Rp {parseInt(selectedProduk.harga).toLocaleString()}</p>
           </div>
         )}
@@ -155,22 +147,33 @@ function Product() {
               <span onClick={() => setSelectedProduk(produk)} style={{ cursor: 'pointer' }}>
                 {produk.nama}
               </span>
-              {user?.role === "admin" && (
-                <button
-                  onClick={() => handleHapusProduk(produk.id)}
-                  style={{
-                    marginLeft: '10px',
-                    backgroundColor: '#d62828',
-                    color: 'white',
-                    border: 'none',
-                    padding: '4px 8px',
-                    borderRadius: '5px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Hapus
-                </button>
-              )}
+              <button
+                onClick={() => handleEditProduk(produk)}
+                style={{
+                  marginLeft: '10px',
+                  backgroundColor: '#ffc107',
+                  border: 'none',
+                  padding: '4px 8px',
+                  borderRadius: '5px',
+                  cursor: 'pointer'
+                }}
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleHapusProduk(produk.id)}
+                style={{
+                  marginLeft: '10px',
+                  backgroundColor: '#d62828',
+                  color: 'white',
+                  border: 'none',
+                  padding: '4px 8px',
+                  borderRadius: '5px',
+                  cursor: 'pointer'
+                }}
+              >
+                Hapus
+              </button>
             </li>
           ))}
         </ul>

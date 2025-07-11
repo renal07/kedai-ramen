@@ -1,21 +1,37 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
+import Auth from './pages/Auth';
 import Home from './pages/Home';
 import About from './pages/About';
 import Product from './pages/Product';
 import Contact from './pages/Contact';
-import Auth from './pages/Auth'; // ✅ Pastikan huruf besar kecil sesuai nama file
+
+// Fungsi pengecekan login
+const isLoggedIn = () => {
+  return localStorage.getItem("user") !== null;
+};
+
+// Komponen pembungkus untuk halaman yang perlu login
+const ProtectedRoute = ({ element }) => {
+  return isLoggedIn() ? element : <Navigate to="/login" replace />;
+};
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Auth />} /> {/* route login */}
+        {/* Default redirect ke /login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        
+        {/* Login page */}
+        <Route path="/login" element={<Auth />} />
+
+        {/* Rute yang dilindungi */}
+        <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
+        <Route path="/about" element={<ProtectedRoute element={<About />} />} />
+        <Route path="/product" element={<ProtectedRoute element={<Product />} />} />
+        <Route path="/contact" element={<ProtectedRoute element={<Contact />} />} />
       </Routes>
     </BrowserRouter>
   );

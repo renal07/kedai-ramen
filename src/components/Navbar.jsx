@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // ✅ gunakan Link, bukan a href
 import './Navbar.css';
 
 function Navbar() {
@@ -14,21 +15,25 @@ function Navbar() {
       <div className="navbar-logo">
         <h6>=</h6>
       </div>
-      <ul className="navbar-menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/product">Product</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
 
-        {/* Tampilkan Logout jika user login */}
-        {user && (
+      {user ? (
+        <ul className="navbar-menu">
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/product">Product</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
           <li>
             <button onClick={handleLogout}>
               Logout ({user.username})
             </button>
           </li>
-        )}
-      </ul>
+        </ul>
+      ) : (
+        <ul className="navbar-menu">
+          <li><Link to="/login">Login</Link></li>
+        </ul>
+      )}
+
       <div className="navbar-brand">
         <h6>=</h6>
       </div>
