@@ -12,6 +12,15 @@ function Auth() {
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    // Jika form kosong, langsung ke Home
+    if (form.username.trim() === '' && form.password.trim() === '') {
+      alert("Login tanpa data, masuk sebagai guest.");
+      navigate("/home");
+      return;
+    }
+
+    // Jika ada input, proses login normal
     fetch("http://localhost/kedai-api/login/login.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -38,6 +47,11 @@ function Auth() {
       });
   };
 
+  const handleAdminClick = () => {
+    alert("Menuju halaman admin tanpa login.");
+    navigate("/admin");
+  };
+
   return (
     <div style={{
       maxWidth: '400px',
@@ -56,7 +70,6 @@ function Auth() {
           value={form.username}
           onChange={handleChange}
           placeholder="Username"
-          required
           style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0' }}
         />
         <input
@@ -65,15 +78,25 @@ function Auth() {
           value={form.password}
           onChange={handleChange}
           placeholder="Password"
-          required
           style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0' }}
         />
-        <button
-          type="submit"
-          style={{ padding: '10px 20px', background: '#b22222', color: 'white', border: 'none', cursor: 'pointer' }}
-        >
-          Login
-        </button>
+
+        {/* Tombol Login dan Admin disusun horizontal */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+          <button
+            type="submit"
+            style={{ flex: 1, padding: '10px 20px', background: '#b22222', color: 'white', border: 'none', cursor: 'pointer' }}
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            onClick={handleAdminClick}
+            style={{ flex: 1, padding: '10px 20px', background: '#333', color: 'white', border: 'none', cursor: 'pointer' }}
+          >
+            Admin
+          </button>
+        </div>
       </form>
     </div>
   );
