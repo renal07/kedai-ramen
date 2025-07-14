@@ -31,7 +31,7 @@ function Product() {
   }, []);
 
   const fetchProduk = () => {
-    fetch("http://localhost/kedai-api/produk/read.php")
+    fetch("http://localhost/kedai-ramen/api/produk/read.php")
       .then((res) => res.json())
       .then((data) => {
         setProdukList(data);
@@ -50,11 +50,12 @@ function Product() {
       return;
     }
 
-    fetch("http://localhost/kedai-api/produk/create.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newProduk),
-    })
+    fetch("http://localhost/kedai-ramen/api/produk/create.php", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(newProduk),
+})
+
       .then((res) => res.json())
       .then((data) => {
         alert(data.message);
@@ -69,11 +70,12 @@ function Product() {
   };
 
   const handleUpdateProduk = () => {
-    fetch("http://localhost/kedai-api/produk/update.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newProduk),
-    })
+    fetch("http://localhost/kedai-ramen/api/produk/update.php", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(newProduk),
+})
+
       .then((res) => res.json())
       .then((data) => {
         alert(data.message);
@@ -86,11 +88,12 @@ function Product() {
   const handleHapusProduk = (id) => {
     if (!window.confirm("Yakin ingin menghapus produk ini?")) return;
 
-    fetch("http://localhost/kedai-api/produk/delete.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    })
+    fetch("http://localhost/kedai-ramen/api/produk/delete.php", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ id }),
+})
+
       .then((res) => res.json())
       .then((data) => {
         alert(data.message);
