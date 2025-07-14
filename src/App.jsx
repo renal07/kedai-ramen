@@ -9,35 +9,28 @@ import Beli from './pages/Beli';
 import Admin from './pages/Admin';
 import Product from './pages/Product';
 import Editor from './pages/Editor';
+import Register from './pages/register';
 
-// Fungsi pengecekan login
-const isLoggedIn = () => {
-  return localStorage.getItem("user") !== null;
-};
 
-// Komponen pembungkus untuk halaman yang perlu login
-const ProtectedRoute = ({ element }) => {
-  return isLoggedIn() ? element : <Navigate to="/login" replace />;
-};
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Default redirect ke /login */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        {/* Saat buka halaman pertama, langsung ke Home */}
+        <Route path="/" element={<Home />} />
         
-        {/* Login page */}
+        {/* Halaman lainnya */}
         <Route path="/login" element={<Auth />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/beli" element={<Beli />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/product" element={<Product />} />
+        <Route path="/editor" element={<Editor />} />
+        <Route path="/register" element={<Register />} />
 
-        {/* Rute yang dilindungi */}
-        <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
-        <Route path="/about" element={<ProtectedRoute element={<About />} />} />
-        <Route path="/beli" element={<ProtectedRoute element={<Beli />} />} />
-        <Route path="/contact" element={<ProtectedRoute element={<Contact />} />} />
-        <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />
-        <Route path="/product" element={<ProtectedRoute element={<Product />} />} />
-        <Route path="/editor" element={<ProtectedRoute element={<Editor />} />} />
       </Routes>
     </BrowserRouter>
   );

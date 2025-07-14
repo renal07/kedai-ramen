@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Editor() {
-  const navigate = useNavigate();
   const [akunList, setAkunList] = useState([]);
-  const [form, setForm] = useState({ username: '', password: '', role: '' });
-  const [editId, setEditId] = useState(null);
+  const [form, setForm] = useState({
+    username: '',
+    email: '',
+    password: '',
+    role: 'pelanggan'
+  });
   const [isEdit, setIsEdit] = useState(false);
+  const [editId, setEditId] = useState(null);
+  const navigate = useNavigate();
 
-useEffect(() => {
-  fetch('http://localhost/kedai-api/akun/read.php')
-    .then(res => res.json())
-    .then(data => setAkunList(data))
-    .catch(err => console.error(err));
-}, []);
-
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = () => {
-    fetch('http://localhost/kedai-api/akun/read.php')
+    fetch('http://localhost/akun/read.php')
       .then(res => res.json())
       .then(data => setAkunList(data));
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
   };
 
   const handleChange = e => {
@@ -34,44 +30,51 @@ useEffect(() => {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
     const url = isEdit
-      ? 'http://localhost/kedai-api/akun/update.php'
-      : 'http://localhost/kedai-api/akun/create.php';
+      ? 'http://localhost/akun/update.php'
+      : 'http://localhost/akun/create.php';
 
     const payload = isEdit ? { id: editId, ...form } : form;
 
     fetch(url, {
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
       .then(res => res.json())
       .then(data => {
-        alert(data.message);
-        fetchData();
-        setForm({ username: '', password: '', role: '' });
-        setEditId(null);
+        alert(data.message || "Berhasil!");
+        setForm({ username: '', email: '', password: '', role: 'pelanggan' });
         setIsEdit(false);
+        setEditId(null);
+        fetchData();
       });
   };
 
   const handleEdit = akun => {
-    setForm({ username: akun.username, password: '', role: akun.role });
+    setForm({
+      username: akun.username,
+      email: akun.email,
+      password: akun.password,
+      role: akun.role
+    });
     setEditId(akun.id);
     setIsEdit(true);
   };
 
   const handleDelete = id => {
-    if (!window.confirm("Yakin ingin menghapus akun ini?")) return;
-    fetch('http://localhost/kedai-api/akun/delete.php', {
+    if (!window.confirm("Hapus akun ini?")) return;
+
+    fetch('http://localhost/akun/delete.php', {
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
     })
       .then(res => res.json())
       .then(data => {
-        alert(data.message);
+        alert(data.message || "Berhasil dihapus");
         fetchData();
       });
   };
@@ -79,57 +82,132 @@ useEffect(() => {
   return (
     <div>
       <Header />
-      <div style={{ display: 'flex', gap: '12px', margin: '16px 0', justifyContent: 'center' }}>
-        <Link to="/admin">
-          <button className="admin-btn">Kembali</button>
-        </Link>
-        <button className="admin-btn logout" onClick={handleLogout}>Logout</button>
-      </div>
+      <div className="container mt-4">
+        <h2 className="mb-4 text-center">Daftar Akun</h2>
 
-      <main className="beli-main">
-        <h2>Halaman Editor</h2>
-
-        {/* Form Tambah/Edit Akun */}
-        <div style={{ maxWidth: '400px', margin: '0 auto 20px' }}>
-          <h4>{isEdit ? "Edit Akun" : "Tambah Akun"}</h4>
-          <input name="username" value={form.username} onChange={handleChange} placeholder="Username" style={{ width: '100%', marginBottom: '8px' }} />
-          <input name="password" type="password" value={form.password} onChange={handleChange} placeholder={isEdit ? "(Password baru atau kosong)" : "Password"} style={{ width: '100%', marginBottom: '8px' }} />
-          <select name="role" value={form.role} onChange={handleChange} style={{ width: '100%', marginBottom: '8px' }}>
-            <option value="">Pilih Role</option>
-            <option value="admin">Admin</option>
-            <option value="editor">Editor</option>
-          </select>
-          <button onClick={handleSubmit}>{isEdit ? "Simpan Perubahan" : "Tambah Akun"}</button>
-        </div>
-
-        {/* Tabel Akun */}
-        <table style={{ margin: '0 auto', borderCollapse: 'collapse', minWidth: '360px' }}>
-          <thead>
-            <tr style={{ background: '#eee' }}>
-              <th>No</th>
+        {/* Tabel */}
+        <table className="table table-bordered table-striped">
+          <thead className="table-dark">
+            <tr>
+              <th>ID</th>
               <th>Username</th>
+              <th>Email</th>
+              <th>Password</th>
               <th>Role</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            {akunList.map((akun, idx) => (
+            {akunList.map((akun) => (
               <tr key={akun.id}>
-                <td>{idx + 1}</td>
+                <td>{akun.id}</td>
                 <td>{akun.username}</td>
-                <td style={{ textTransform: 'capitalize' }}>{akun.role}</td>
+                <td>{akun.email}</td>
+                <td>{akun.password}</td>
+                <td>{akun.role}</td>
                 <td>
-                  <button onClick={() => handleEdit(akun)}>Edit</button>
-                  <button onClick={() => handleDelete(akun.id)} style={{ marginLeft: '8px', color: 'red' }}>Hapus</button>
+                  <button
+                    onClick={() => handleEdit(akun)}
+                    className="btn btn-sm btn-warning"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(akun.id)}
+                    className="btn btn-sm btn-danger ms-2"
+                  >
+                    Hapus
+                  </button>
                 </td>
               </tr>
             ))}
             {akunList.length === 0 && (
-              <tr><td colSpan={4} style={{ textAlign: 'center' }}>Belum ada akun</td></tr>
+              <tr>
+                <td colSpan="6" className="text-center">Belum ada data</td>
+              </tr>
             )}
           </tbody>
         </table>
-      </main>
+
+        <hr className="my-4" />
+
+        {/* Form */}
+        <h4>{isEdit ? "Edit Akun" : "Tambah Akun"}</h4>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-2">
+            <label className="form-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              value={form.username}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="form-label">Password</label>
+            <input
+              type="text"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Role</label>
+            <select
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              className="form-select"
+              required
+            >
+              <option value="pelanggan">Pelanggan</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <button type="submit" className="btn btn-primary me-2">
+            {isEdit ? 'Simpan Perubahan' : 'Tambah Akun'}
+          </button>
+          {isEdit && (
+            <button
+              type="button"
+              onClick={() => {
+                setForm({ username: '', email: '', password: '', role: 'pelanggan' });
+                setIsEdit(false);
+                setEditId(null);
+              }}
+              className="btn btn-secondary"
+            >
+              Batal
+            </button>
+          )}
+        </form>
+
+        <div className="mt-4">
+          <button className="btn btn-link" onClick={() => navigate('/admin')}>
+            ← Kembali ke Admin
+          </button>
+        </div>
+      </div>
       <Footer />
     </div>
   );

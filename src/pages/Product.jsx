@@ -4,26 +4,17 @@ import Footer from '../components/Footer';
 import './Product.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Ramen1 from '../assets/Ramen 1.png';
-import Ramen2 from '../assets/Ramen 2.png';
-import Ramen3 from '../assets/Ramen 3.png';
-
-const imageMap = {
-  "Ramen1.jpg": Ramen1,
-  "Ramen2.jpg": Ramen2,
-  "Ramen3.jpg": Ramen3,
-};
-
-function Product() {
+const Product = () => {
   const [produkList, setProdukList] = useState([]);
-  const [selectedProduk, setSelectedProduk] = useState(null);
-  const [newProduk, setNewProduk] = useState({
+  const [form, setForm] = useState({
     id: '',
-    nama: '',
+    makanan: '',
+    gambarText: '',
+    gambarFile: null,
     harga: '',
-    gambar: '',
+    deskripsi: ''
   });
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,170 +22,232 @@ function Product() {
   }, []);
 
   const fetchProduk = () => {
-    fetch("http://localhost/kedai-ramen/api/produk/read.php")
-      .then((res) => res.json())
-      .then((data) => {
-        setProdukList(data);
-        setSelectedProduk(data[0] || null);
-      });
+    fetch("http://localhost/produk/read.php")
+      .then(res => res.json())
+      .then(data => setProdukList(data));
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    setNewProduk({ ...newProduk, [name]: value });
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleTambahProduk = () => {
-    if (!newProduk.nama || !newProduk.harga || !newProduk.gambar) {
-      alert("Harap lengkapi semua field.");
-      return;
+  const handleFileChange = e => {
+    setForm(prev => ({ ...prev, gambarFile: e.target.files[0] }));
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("makanan", form.makanan);
+    formData.append("harga", form.harga);
+    formData.append("deskripsi", form.deskripsi);
+
+    if (form.gambarFile) {
+      formData.append("gambar_file", form.gambarFile);
+    } else {
+      formData.append("gambar_text", form.gambarText);
     }
 
-    fetch("http://localhost/kedai-ramen/api/produk/create.php", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(newProduk),
-})
+    const url = isEdit
+      ? "http://localhost/produk/update.php"
+      : "http://localhost/produk/create.php";
 
-      .then((res) => res.json())
-      .then((data) => {
-        alert(data.message);
-        setNewProduk({ nama: '', harga: '', gambar: '' });
+    const method = isEdit ? "POST" : "POST";
+    formData.append(isEdit ? "edit" : "tambah", "1");
+    if (isEdit) formData.append("id", form.id);
+
+    fetch(url, {
+      method,
+      body: formData
+    })
+      .then(() => {
+        alert(isEdit ? "Produk berhasil diedit." : "Produk berhasil ditambahkan.");
+        setForm({
+          id: '',
+          makanan: '',
+          gambarText: '',
+          gambarFile: null,
+          harga: '',
+          deskripsi: ''
+        });
+        setIsEdit(false);
         fetchProduk();
       });
   };
 
-  const handleEditProduk = (produk) => {
-    setNewProduk(produk);
-    setIsEditMode(true);
+  const handleEdit = (produk) => {
+    setForm({
+      id: produk.id,
+      makanan: produk.makanan,
+      gambarText: produk.gambar,
+      gambarFile: null,
+      harga: produk.harga,
+      deskripsi: produk.deskripsi
+    });
+    setIsEdit(true);
   };
 
-  const handleUpdateProduk = () => {
-    fetch("http://localhost/kedai-ramen/api/produk/update.php", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(newProduk),
-})
+const handleDelete = (id) => {
+  if (!window.confirm("Hapus produk ini?")) return;
 
-      .then((res) => res.json())
-      .then((data) => {
-        alert(data.message);
-        setIsEditMode(false);
-        setNewProduk({ nama: '', harga: '', gambar: '' });
-        fetchProduk();
-      });
-  };
-
-  const handleHapusProduk = (id) => {
-    if (!window.confirm("Yakin ingin menghapus produk ini?")) return;
-
-    fetch("http://localhost/kedai-ramen/api/produk/delete.php", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ id }),
-})
-
-      .then((res) => res.json())
-      .then((data) => {
+  fetch('http://localhost/produk/delete.php', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id }), // kirim dalam JSON
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.message) {
         alert(data.message);
         fetchProduk();
-      });
-  };
+      } else {
+        alert(data.error || "Gagal menghapus produk.");
+      }
+    })
+    .catch(err => {
+      console.error("Error saat delete:", err);
+      alert("Terjadi kesalahan saat menghapus produk.");
+    });
+};
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
+
+  const handleCancel = () => {
+    setIsEdit(false);
+    setForm({
+      id: '',
+      makanan: '',
+      gambarText: '',
+      gambarFile: null,
+      harga: '',
+      deskripsi: ''
+    });
   };
 
   return (
     <div>
       <Header />
-      <div style={{ display: 'flex', gap: '12px', margin: '16px 0', justifyContent: 'center' }}>
-        <Link to="/admin">
-          <button className="admin-btn">Kembali</button>
-        </Link>
-        <button className="admin-btn logout" onClick={handleLogout}>Logout</button>
-      </div>
-      <main className="product-main">
-        <h2>Menu Ramen Kami</h2>
-
-        <div className="form-tambah">
-          <h3>{isEditMode ? 'Edit Produk' : 'Tambah Produk'}</h3>
-          <input
-            type="text"
-            name="nama"
-            value={newProduk.nama}
-            onChange={handleChange}
-            placeholder="Nama produk"
-          />
-          <input
-            type="number"
-            name="harga"
-            value={newProduk.harga}
-            onChange={handleChange}
-            placeholder="Harga"
-          />
-          <select name="gambar" value={newProduk.gambar} onChange={handleChange}>
-            <option value="">Pilih Gambar</option>
-            <option value="Ramen1.jpg">Ramen1</option>
-            <option value="Ramen2.jpg">Ramen2</option>
-            <option value="Ramen3.jpg">Ramen3</option>
-          </select>
-          {isEditMode ? (
-            <button onClick={handleUpdateProduk}>Simpan Perubahan</button>
-          ) : (
-            <button onClick={handleTambahProduk}>Tambah</button>
-          )}
+      <div className="container mt-4">
+        <div className="d-flex justify-content-between mb-3">
+          <Link to="/admin">
+            <button className="btn btn-secondary">← Kembali ke Admin</button>
+          </Link>
+          <button className="btn btn-danger" onClick={() => {
+            localStorage.removeItem('user');
+            navigate('/login');
+          }}>Logout</button>
         </div>
 
-        {selectedProduk && (
-          <div className="featured-image">
-            <img src={imageMap[selectedProduk.gambar]} alt={selectedProduk.nama} />
-            <h3>{selectedProduk.nama}</h3>
-            <p>Rp {parseInt(selectedProduk.harga).toLocaleString()}</p>
-          </div>
-        )}
+        {/* TABEL PRODUK */}
+        <h3>Daftar Produk</h3>
+        <table className="table table-bordered">
+          <thead className="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Makanan</th>
+              <th>Gambar</th>
+              <th>Harga</th>
+              <th>Deskripsi</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {produkList.map((produk) => (
+              <tr key={produk.id}>
+                <td>{produk.id}</td>
+                <td>{produk.makanan}</td>
+                <td>
+                  <img src={produk.gambar} alt={produk.makanan} width="60" />
+                </td>
+                <td>Rp {parseInt(produk.harga).toLocaleString()}</td>
+                <td>{produk.deskripsi}</td>
+                <td>
+                  <button onClick={() => handleEdit(produk)} className="btn btn-warning btn-sm me-2">Edit</button>
+                  <button onClick={() => handleDelete(produk.id)} className="btn btn-danger btn-sm">Hapus</button>
+                </td>
+              </tr>
+            ))}
+            {produkList.length === 0 && (
+              <tr><td colSpan="6" className="text-center">Belum ada produk</td></tr>
+            )}
+          </tbody>
+        </table>
 
-        <ul className="product-list">
-          {produkList.map((produk) => (
-            <li key={produk.id} className="product-item">
-              <span onClick={() => setSelectedProduk(produk)} style={{ cursor: 'pointer' }}>
-                {produk.nama}
-              </span>
-              <button
-                onClick={() => handleEditProduk(produk)}
-                style={{
-                  marginLeft: '10px',
-                  backgroundColor: '#ffc107',
-                  border: 'none',
-                  padding: '4px 8px',
-                  borderRadius: '5px',
-                  cursor: 'pointer'
-                }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleHapusProduk(produk.id)}
-                style={{
-                  marginLeft: '10px',
-                  backgroundColor: '#d62828',
-                  color: 'white',
-                  border: 'none',
-                  padding: '4px 8px',
-                  borderRadius: '5px',
-                  cursor: 'pointer'
-                }}
-              >
-                Hapus
-              </button>
-            </li>
-          ))}
-        </ul>
-      </main>
+        <hr className="my-4" />
+
+        {/* FORM TAMBAH/EDIT */}
+        <h3>{isEdit ? "Edit Produk" : "Tambah Produk"}</h3>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div className="mb-2">
+            <label className="form-label">Makanan</label>
+            <input
+              type="text"
+              name="makanan"
+              value={form.makanan}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="form-label">Gambar (link atau upload file)</label>
+            <input
+              type="text"
+              name="gambarText"
+              value={form.gambarText}
+              onChange={handleChange}
+              className="form-control mb-2"
+              placeholder="https://example.com/gambar.jpg"
+            />
+            <input
+              type="file"
+              name="gambarFile"
+              onChange={handleFileChange}
+              className="form-control"
+              accept="image/*"
+            />
+          </div>
+
+          <div className="mb-2">
+            <label className="form-label">Harga</label>
+            <input
+              type="number"
+              name="harga"
+              value={form.harga}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Deskripsi</label>
+            <textarea
+              name="deskripsi"
+              value={form.deskripsi}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary me-2">
+            {isEdit ? "Simpan Perubahan" : "Tambah Produk"}
+          </button>
+          {isEdit && (
+            <button type="button" onClick={handleCancel} className="btn btn-secondary">
+              Batal
+            </button>
+          )}
+        </form>
+      </div>
       <Footer />
     </div>
   );
-}
+};
 
 export default Product;
