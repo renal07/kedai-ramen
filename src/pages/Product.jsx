@@ -37,8 +37,46 @@ const Product = () => {
   };
 
   const handleSubmit = e => {
-    e.preventDefault();
+  e.preventDefault();
 
+  const isEditing = isEdit;
+
+  if (isEditing) {
+    const payload = {
+      id: form.id,
+      makanan: form.makanan,
+      gambar: form.gambarText, // hanya kirim gambarText karena upload file tidak bisa lewat PUT
+      harga: form.harga,
+      deskripsi: form.deskripsi
+    };
+
+    fetch("http://localhost/produk/update.php", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.message) {
+        alert(data.message);
+        setForm({
+          id: '',
+          makanan: '',
+          gambarText: '',
+          gambarFile: null,
+          harga: '',
+          deskripsi: ''
+        });
+        setIsEdit(false);
+        fetchProduk();
+      } else {
+        alert(data.error || "Gagal update produk.");
+      }
+    });
+  } else {
+    // TAMBAH BARU – tetap pakai FormData & POST
     const formData = new FormData();
     formData.append("makanan", form.makanan);
     formData.append("harga", form.harga);
@@ -50,32 +88,25 @@ const Product = () => {
       formData.append("gambar_text", form.gambarText);
     }
 
-    const url = isEdit
-      ? "http://localhost/produk/update.php"
-      : "http://localhost/produk/create.php";
-
-    const method = isEdit ? "POST" : "POST";
-    formData.append(isEdit ? "edit" : "tambah", "1");
-    if (isEdit) formData.append("id", form.id);
-
-    fetch(url, {
-      method,
+    fetch("http://localhost/produk/create.php", {
+      method: "POST",
       body: formData
     })
-      .then(() => {
-        alert(isEdit ? "Produk berhasil diedit." : "Produk berhasil ditambahkan.");
-        setForm({
-          id: '',
-          makanan: '',
-          gambarText: '',
-          gambarFile: null,
-          harga: '',
-          deskripsi: ''
-        });
-        setIsEdit(false);
-        fetchProduk();
+    .then(() => {
+      alert("Produk berhasil ditambahkan.");
+      setForm({
+        id: '',
+        makanan: '',
+        gambarText: '',
+        gambarFile: null,
+        harga: '',
+        deskripsi: ''
       });
-  };
+      fetchProduk();
+    });
+  }
+};
+
 
   const handleEdit = (produk) => {
     setForm({
