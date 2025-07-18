@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Auth from './pages/Auth';
 import Home from './pages/Home';
@@ -11,16 +11,12 @@ import Product from './pages/Product';
 import Editor from './pages/Editor';
 import Register from './pages/register';
 
-
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Saat buka halaman pertama, langsung ke Home */}
         <Route path="/" element={<Home />} />
         
-        {/* Halaman lainnya */}
         <Route path="/login" element={<Auth />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
